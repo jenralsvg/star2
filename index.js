@@ -66,27 +66,31 @@ function kyun(seconds){
   return `${pad(hours)} Jam ${pad(minutes)} Menit ${pad(seconds)} Detik`
 }
 
-async function starts() {
-	const enzet = new WAConnection()
-	enzet.logger.level = 'warn'
-	console.log(banner.string)
-	enzet.on('qr', () => {
-		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan Code QR Nya Boss'))
-	})
+const enzet = new WAConnection()
+enzet.logger.level = 'warn'
+console.log(banner.string)
+   enzet.on('qr', qr => {
+   qrcode.generate(qr, { small: true })
+	console.log(color('[','white'), color('!','red'), color(']','white'), color('Scan Code QR JRL Enzet'))
+})
 
+	enzet.on('credentials-updated', () => {
+		fs.writeFileSync('./Ilham.json', JSON.stringify(enzet.base64EncodedAuthInfo(), null, '\t'))
+		info('2', 'ingfokan cuyy...')
+	})
 	fs.existsSync('./Ilham.json') && enzet.loadAuthInfo('./Ilham.json')
 	enzet.on('connecting', () => {
-		start('2', 'Connecting...')
+		start('2', 'JRL Enzet Connecting...')
 	})
 	enzet.on('open', () => {
-		success('2', 'Connected')
+		success('2', 'JRL Enzet Connected')
 	})
-	await enzet.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./Ilham.json', JSON.stringify(enzet.base64EncodedAuthInfo(), null, '\t'))
-
+	enzet.connect({timeoutMs: 30*1000})
+	
 	enzet.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
 		try {
+			
 			const mdata = await enzet.groupMetadata(anu.jid)
 			console.log(anu)
 			if (anu.action == 'add') {
