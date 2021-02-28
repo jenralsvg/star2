@@ -202,47 +202,40 @@ const createSerial = (size) => {
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-			switch(command) {
-				case 'help':
-	case 'menu':
+switch(command) {
+case 'help':
+case 'menu':
 	   enzet.sendMessage(from, help(prefix), text, tescuk, cr)
 	break
-					case 'donasi':
-	case 'donate':
+case 'donasi':
+case 'donate':
 	   enzet.sendMessage(from, donasi(prefix), text, tescuk, cr)
 	break
-				case 'info':
-					me = enzet.user
-					uptime = process.uptime()
-					teks = `*𝐍𝐚𝐦𝐚 𝐁𝐨𝐭* : ${me.name}\n*𝐍𝐨𝐦𝐨𝐫 𝐁𝐨𝐭* : @${me.jid.split('@')[0]}\n*𝐏𝐫𝐞𝐟𝐢𝐱* : ${prefix}\n*𝐓𝐨𝐭𝐚𝐥 𝐁𝐥𝐨𝐜𝐤 𝐂𝐨𝐧𝐭𝐚𝐜𝐭* : ${blocked.length}\n*𝐁𝐨𝐭 𝐀𝐤𝐭𝐢𝐟* : ${kyun(uptime)}`
-					buffer = await getBuffer(me.imgUrl)
-					enzet.sendMessage(from, buffer, image, {caption: teks, contextInfo:{mentionedJid: [me.jid]}})
-					break
-	case 'heppymenu':
+case 'heppymenu':
 	   enzet.sendMessage(from, gabut(prefix), text, tescuk, cr)
 	break
-	case 'islammenu':
+case 'islammenu':
 	   enzet.sendMessage(from, muslim(prefix), text, tescuk, cr)
 	break
-	case 'makermenu':
+case 'makermenu':
 	   enzet.sendMessage(from, maker(prefix), text, tescuk, cr)
 	break
-	case 'soundmenu':
+case 'soundmenu':
 	   enzet.sendMessage(from, sound(prefix), text, tescuk, cr)
 	break
-	case 'groupmenu':
+case 'groupmenu':
 	   enzet.sendMessage(from, groupm(prefix), text, tescuk, cr)
 	break
-	case 'developermenu':
+case 'developermenu':
 	   enzet.sendMessage(from, owb(prefix), text, tescuk, cr)
 	break
-	case 'downloadmenu':
+case 'downloadmenu':
 	   enzet.sendMessage(from, download(prefix), text, tescuk, cr)
 	break
-	case 'othermenu':
+case 'othermenu':
 	   enzet.sendMessage(from, other(prefix), text, tescuk, cr)
 	break
-				case 'blocklist':
+case 'blocklist':
 					teks = '𝐋𝐢𝐬𝐭 𝐁𝐞𝐛𝐚𝐧 𝐊𝐨𝐧𝐭𝐚𝐤 :\n'
 					for (let block of blocked) {
 						teks += `➢ @${block.split('@')[0]}\n`
@@ -250,7 +243,7 @@ const createSerial = (size) => {
 					teks += `𝐓𝐨𝐭𝐚𝐥 : ${blocked.length}`
 					enzet.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": blocked}})
 					break
-				case 'ocr':
+case 'ocr':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await enzet.downloadAndSaveMediaMessage(encmedia)
@@ -268,9 +261,9 @@ const createSerial = (size) => {
 						reply('𝐊𝐢𝐫𝐢𝐦 𝐅𝐨𝐭𝐨...')
 					}
 					break
-				case 'stiker':
-				case 'sticker':
-				case 'stickergif':
+case 'stiker':
+case 'sticker':
+case 'stickergif':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await enzet.downloadAndSaveMediaMessage(encmedia)
@@ -363,7 +356,7 @@ const createSerial = (size) => {
 						reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
 					}
 					break
-				case 'tts':
+case 'tts':
 					if (args.length < 1) return enzet.sendMessage(from, '𝐓𝐭𝐬 ? 𝐓𝐚𝐦𝐛𝐚𝐡𝐤𝐚𝐧 𝐊𝐚𝐭𝐚 𝐊𝐮𝐧𝐜𝐢 𝐂𝐨𝐧𝐭𝐨𝐡 ${prefix}𝐭𝐭𝐬 𝐢𝐝', text, {quoted: mek})
 					const gtts = require('./lib/gtts')(args[0])
 					if (args.length < 2) return enzet.sendMessage(from, '𝐒𝐞𝐥𝐚𝐢𝐧 𝐊𝐚𝐭𝐚 𝐊𝐮𝐧𝐜𝐢 𝐀𝐧𝐝𝐚 𝐇𝐚𝐫𝐮𝐬 𝐌𝐞𝐦𝐚𝐬𝐮𝐤𝐚𝐧 𝐓𝐞𝐱𝐭', text, {quoted: mek})
