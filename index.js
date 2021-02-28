@@ -19,6 +19,7 @@ const fs = require("fs")
 const imageToBase64 = require('image-to-base64')
 const axios = require('axios')
 const { color, bgcolor } = require('./lib/color')
+const { donasi } = require('./lib/donasi')
 const { fetchJson } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
 const { exec } = require("child_process")
@@ -149,6 +150,8 @@ console.log(banner.string)
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+            var tas = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
+			const mesejAnti = tas.slice(0).trim().split(/ +/).shift().toLowerCase()
 			const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 			const args = body.trim().split(/ +/).slice(1)
 			const isCmd = body.startsWith(prefix)
@@ -186,7 +189,7 @@ console.log(banner.string)
 			const isSimi = isGroup ? samih.includes(from) : false
 			const isOwner = ownerNumber.includes(sender)
 			const isUrl = (url) => {
-			    return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
+			        return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
 			}
 			const reply = (teks) => {
 				enzet.sendMessage(from, teks, text, {quoted:mek})
@@ -197,6 +200,15 @@ console.log(banner.string)
 			const mentions = (teks, memberr, id) => {
 				(id == null || id == undefined || id == false) ? enzet.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : enzet.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
+			const sendImage = (teks) => {
+		    enzet.sendMessage(from, teks, image, {quoted:mek})
+		    }
+		    const costum = (pesan, tipe, target, target2) => {
+			enzet.sendMessage(from, pesan, tipe, {quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: { conversation: `${target2}` }}})
+			}
+		    const sendPtt = (teks) => {
+		    enzet.sendMessage(from, audio, mp3, {quoted:mek})
+		    }
 			
 const createSerial = (size) => {
       return crypto.randomBytes(size).toString('hex').slice(0, size)
@@ -213,35 +225,35 @@ const createSerial = (size) => {
 switch(command) {
 case 'help':
 case 'menu':
-	   enzet.sendMessage(from, help(prefix), text, tescuk, cr)
+	   await costum(help(prefix), text, tescuk, cr)
 	break
 case 'donasi':
 case 'donate':
-	   enzet.sendMessage(from, donasi(prefix), text, tescuk, cr)
+	   await costum(donasi(prefix), text, tescuk, cr)
 	break
 case 'heppymenu':
-	   enzet.sendMessage(from, gabut(prefix), text, tescuk, cr)
+	   await costum(gabut(prefix), text, tescuk, cr)
 	break
 case 'islammenu':
-	   enzet.sendMessage(from, muslim(prefix), text, tescuk, cr)
+	   await costum(muslim(prefix), text, tescuk, cr)
 	break
 case 'makermenu':
-	   enzet.sendMessage(from, maker(prefix), text, tescuk, cr)
+	   await costum(maker(prefix), text, tescuk, cr)
 	break
 case 'soundmenu':
-	   enzet.sendMessage(from, sound(prefix), text, tescuk, cr)
+	   await costum(sound(prefix), text, tescuk, cr)
 	break
 case 'groupmenu':
-	   enzet.sendMessage(from, groupm(prefix), text, tescuk, cr)
+	   await costum(groupm(prefix), text, tescuk, cr)
 	break
 case 'developermenu':
-	   enzet.sendMessage(from, owb(prefix), text, tescuk, cr)
+	   await costum(owb(prefix), text, tescuk, cr)
 	break
 case 'downloadmenu':
-	   enzet.sendMessage(from, download(prefix), text, tescuk, cr)
+	   await costum(download(prefix), text, tescuk, cr)
 	break
 case 'othermenu':
-	   enzet.sendMessage(from, other(prefix), text, tescuk, cr)
+	   await costum(other(prefix), text, tescuk, cr)
 	break
 case 'blocklist':
 					teks = '𝐋𝐢𝐬𝐭 𝐁𝐞𝐛𝐚𝐧 𝐊𝐨𝐧𝐭𝐚𝐤 :\n'
