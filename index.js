@@ -224,35 +224,35 @@ const createSerial = (size) => {
 switch(command) {
 case 'help':
 case 'menu':
-	   await costum(help(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, help(prefix), text, tescuk, cr)
 	break
 case 'donasi':
 case 'donate':
-	   await costum(donasi(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, donasi(prefix), text, tescuk, cr)
 	break
 case 'heppymenu':
-	   await costum(gabut(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, gabut(prefix), text, tescuk, cr)
 	break
 case 'islammenu':
-	   await costum(muslim(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, muslim(prefix), text, tescuk, cr)
 	break
 case 'makermenu':
-	   await costum(maker(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, maker(prefix), text, tescuk, cr)
 	break
 case 'soundmenu':
-	   await costum(sound(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, sound(prefix), text, tescuk, cr)
 	break
 case 'groupmenu':
-	   await costum(groupm(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, groupm(prefix), text, tescuk, cr)
 	break
 case 'developermenu':
-	   await costum(owb(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, owb(prefix), text, tescuk, cr)
 	break
 case 'downloadmenu':
-	   await costum(download(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, download(prefix), text, tescuk, cr)
 	break
 case 'othermenu':
-	   await costum(other(prefix), text, tescuk, cr)
+	   enzet.sendMessage(from, other(prefix), text, tescuk, cr)
 	break
 case 'blocklist':
 					teks = '𝐋𝐢𝐬𝐭 𝐁𝐞𝐛𝐚𝐧 𝐊𝐨𝐧𝐭𝐚𝐤 :\n'
